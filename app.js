@@ -3,6 +3,7 @@ const app = express();
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const swaggerUi = require('swagger-ui-express');
 
 const productRoutes = require("./api/routes/products");
 const orderRoutes = require("./api/routes/orders");
@@ -38,6 +39,9 @@ app.use((req, res, next) => {
 app.use("/products", productRoutes);
 app.use("/orders", orderRoutes);
 app.use("/user", userRoutes);
+app.get('/api-docs', (req, res) => {
+  res.sendFile('./swagger.json');
+});
 
 app.use((req, res, next) => {
   const error = new Error("Not found");
